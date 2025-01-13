@@ -21,4 +21,6 @@ public class Status {
         this.statusId = statusId;
         this.description = description;
     }
+
+
 }

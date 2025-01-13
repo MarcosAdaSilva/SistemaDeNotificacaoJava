@@ -13,7 +13,7 @@ public enum StatusEnum {
     private final Long id;
     private final String description;
 
-    StatusEnum(Long id, String description) {
+    StatusEnum (Long id, String description) {
         this.id = id;
         this.description = description;
     }
