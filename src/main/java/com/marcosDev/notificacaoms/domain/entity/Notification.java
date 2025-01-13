@@ -1,13 +1,11 @@
 package com.marcosDev.notificacaoms.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "tb_notifications")
 public class Notification {
@@ -30,6 +28,8 @@ public class Notification {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    public Notification() {
+    }
 
     public Notification(LocalDateTime dateTime, String destination, String message, Channel channel, Status status) {
         this.dateTime = dateTime;
