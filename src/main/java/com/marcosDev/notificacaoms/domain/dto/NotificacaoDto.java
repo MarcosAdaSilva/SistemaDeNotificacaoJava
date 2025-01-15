@@ -14,6 +14,7 @@ public class NotificacaoDto {
     private String message;
     private Long channelId;
     private Long statusId;
+    private String description;
 
     // Getters
     public Long getNotificationId() {
@@ -40,6 +41,10 @@ public class NotificacaoDto {
         return statusId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     // Setters
     public void setNotificationId(Long notificationId) {
         this.notificationId = notificationId;
@@ -63,5 +68,9 @@ public class NotificacaoDto {
 
     public void setStatusId(Long statusId) {
         this.statusId = statusId;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

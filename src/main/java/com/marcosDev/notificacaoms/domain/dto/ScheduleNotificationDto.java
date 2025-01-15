@@ -8,10 +8,11 @@ import com.marcosDev.notificacaoms.domain.enums.StatusEnum;
 import java.time.LocalDateTime;
 
 public record ScheduleNotificationDto(
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "America/Sao_Paulo")
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "America/Brasilia")
         LocalDateTime dateTime,
         String destination,
         String message,
+        String description,
         ChannelEnum channel
 ) {
     public Notification toNotification() {
@@ -20,7 +21,8 @@ public record ScheduleNotificationDto(
             destination,
             message,
             channel.toChannel(),
-            StatusEnum.PENDING.toStatus()
+            StatusEnum.PENDING.toStatus(),
+                description
         );
     }
 }

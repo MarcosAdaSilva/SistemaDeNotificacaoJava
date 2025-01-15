@@ -46,6 +46,8 @@ public class NotificationService {
         dto.setMessage(notification.getMessage());
         dto.setChannelId(notification.getChannel().getChannelId());
         dto.setStatusId(notification.getStatus().getStatusId());
+        dto.setDescription(notification.getStatus().getDescription());
+
         return dto;
     }
 

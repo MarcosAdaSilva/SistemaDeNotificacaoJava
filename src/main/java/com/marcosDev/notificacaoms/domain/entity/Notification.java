@@ -1,6 +1,8 @@
 package com.marcosDev.notificacaoms.domain.entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.Description;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,15 +27,20 @@ public class Notification {
     @JoinColumn(name = "status_id")
     private Status status;
 
-    public Notification() {
-    }
+    private String description;
 
-    public Notification(LocalDateTime dateTime, String destination, String message, Channel channel, Status status) {
+    public Notification(LocalDateTime dateTime, String destination, String message, Channel channel, Status status, String description) {
         this.dateTime = dateTime;
         this.destination = destination;
         this.message = message;
         this.channel = channel;
         this.status = status;
+        this.description = description;
+
+    }
+
+    public Notification() {
+
     }
 
     public Long getNotificationId() {
@@ -82,5 +89,13 @@ public class Notification {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
