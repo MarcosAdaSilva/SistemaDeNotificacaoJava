@@ -1,8 +1,11 @@
 package com.marcosDev.notificacaoms.rest;
 
+import com.marcosDev.notificacaoms.domain.dto.NotificacaoDto;
 import com.marcosDev.notificacaoms.domain.dto.ScheduleNotificationDto;
 import com.marcosDev.notificacaoms.domain.entity.Notification;
 import com.marcosDev.notificacaoms.service.NotificationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
 @RequestMapping("/notifications")
 public class NotificationController {
 
+    private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
+
     private final NotificationService notificationService;
 
     public NotificationController(NotificationService notificationService) {
@@ -18,25 +23,25 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> ScheduleNotification(@RequestBody ScheduleNotificationDto dto) {
-         notificationService.scheduleNotification(dto);
-         return ResponseEntity.accepted().build();
-
+    public ResponseEntity<Void> scheduleNotification(@RequestBody ScheduleNotificationDto dto) {
+        logger.info("...Rest para criar uma nova Notificação...");
+        notificationService.scheduleNotification(dto);
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping("/{notificationId}")
-    public ResponseEntity<Notification> getNotification(@PathVariable("notificationId") Long notificationsId) {
-         var notification = notificationService.findById(notificationsId);
-         if (notification.isEmpty()) {
-             return ResponseEntity.notFound().build();
-         }
-
-         return ResponseEntity.ok(notification.get());
+    public ResponseEntity<Notification> getNotification(@PathVariable("notificationId") Long notificationId) {
+        logger.info("...Rest para buscar uma notificação por Id...");
+        var notification = notificationService.findById(notificationId);
+        if (notification.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(notification.get());
     }
 
     @GetMapping
-    public ResponseEntity<List<Notification>> getAllNotifications() {
-        List<Notification> notifications = notificationService.findAll();
-        return ResponseEntity.ok(notifications);
+    public ResponseEntity<List<NotificacaoDto>> listarTodos() {
+        logger.info("...Rest para buscar todas as notificações na tabela..");
+        return ResponseEntity.ok(notificationService.listarTodos());
     }
 }

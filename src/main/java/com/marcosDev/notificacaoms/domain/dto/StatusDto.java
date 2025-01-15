@@ -1,8 +1,10 @@
 package com.marcosDev.notificacaoms.domain.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class StatusDto {
     private Long statusId;
     private String description;
