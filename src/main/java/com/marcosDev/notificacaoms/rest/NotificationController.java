@@ -44,4 +44,11 @@ public class NotificationController {
         logger.info("...Rest para buscar todas as notificações na tabela..");
         return ResponseEntity.ok(notificationService.listarTodos());
     }
+
+    @DeleteMapping("/{notificationId}")
+    public ResponseEntity<Void> cancelNotification(@PathVariable("notificationId") Long notificationId) {
+        notificationService.cancelNotification(notificationId);
+        return ResponseEntity.noContent().build();
+
+    }
 }

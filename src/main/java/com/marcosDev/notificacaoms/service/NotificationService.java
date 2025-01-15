@@ -3,6 +3,8 @@ package com.marcosDev.notificacaoms.service;
 import com.marcosDev.notificacaoms.domain.dto.NotificacaoDto;
 import com.marcosDev.notificacaoms.domain.dto.ScheduleNotificationDto;
 import com.marcosDev.notificacaoms.domain.entity.Notification;
+import com.marcosDev.notificacaoms.domain.entity.Status;
+import com.marcosDev.notificacaoms.domain.enums.StatusEnum;
 import com.marcosDev.notificacaoms.domain.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,14 @@ public class NotificationService {
         dto.setChannelId(notification.getChannel().getChannelId());
         dto.setStatusId(notification.getStatus().getStatusId());
         return dto;
+    }
+
+    public void cancelNotification(Long notificationId) {
+        var notification = findById(notificationId);
+
+        if(notification.isPresent()) {
+            notification.get().setStatus(StatusEnum.CANCELED.toStatus());
+            notificationRepository.save(notification.get());
+        }
     }
 }
