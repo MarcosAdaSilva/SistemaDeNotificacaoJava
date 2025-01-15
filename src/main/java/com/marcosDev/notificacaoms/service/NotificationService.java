@@ -8,8 +8,10 @@ import com.marcosDev.notificacaoms.domain.enums.StatusEnum;
 import com.marcosDev.notificacaoms.domain.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,5 +60,24 @@ public class NotificationService {
             notification.get().setStatus(StatusEnum.CANCELED.toStatus());
             notificationRepository.save(notification.get());
         }
+    }
+
+    public void checkAndSend(LocalDateTime dateTime) {
+       var notifications = notificationRepository.findByStatusInAndDateTimeBefore(List.of(
+                StatusEnum.PENDING.toStatus(),
+                StatusEnum.ERROR.toStatus()
+        ), dateTime);
+
+       notifications.forEach(sendNotification());
+
+    }
+
+    private Consumer<Notification> sendNotification() {
+        return n -> {
+            // TODO - REALIZAR O ENVIO DA NOTIFICACAO
+
+            n.setStatus(StatusEnum.SUCCESS.toStatus()); // PARA MUDAR O STATUS DA NOTIFICACAO
+            notificationRepository.save(n); // PARA SALVAR NO BANCO DE DADOS
+        };
     }
 }
